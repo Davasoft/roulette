@@ -17,15 +17,15 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         #unity-canvas {
-            max-height: 100%; /* Match the height of the viewport */
-            max-width: 100vh; /* Set the maximum width based on the viewport height */
-            background: #231F20;
+            width: min(calc(100vh * (16/9)), 100vw);
+            max-width: 100%;
+            max-height: 100%;
+            height: auto;
+            aspect-ratio: 16/9;
+            display: block;
         }
     </style>
 </head>
@@ -33,6 +33,7 @@
     <div id="unity-container">
         <canvas id="unity-canvas" width="1920" height="1080"></canvas>
     </div>
+    <script src="Build/Rulet WEBGL.loader.js"></script>
     <script>
         if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
             // Mobile device style: fill the whole browser client area with the game canvas:
@@ -42,7 +43,9 @@
             document.getElementsByTagName('head')[0].appendChild(meta);
 
             var canvas = document.querySelector("#unity-canvas");
-            canvas.style.maxHeight = "100vh"; // Match the height of the viewport on mobile
+            canvas.style.width = "100%";
+            canvas.style.height = "auto";
+            canvas.style.position = "fixed";
 
             document.body.style.textAlign = "left";
         }
